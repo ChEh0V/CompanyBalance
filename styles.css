@@ -1,0 +1,114 @@
+/* опишем базовый стиль кнопки калькулятора */
+.my-btn {
+  margin-right: 5px;
+  margin-top: 5px;
+  width: 50px;
+  height: 50px;
+  border-radius: 12px;          /* ← изменено: теперь прямоугольные с закруглением */
+  border: none;
+  background: #000000;
+  color: white;
+  font-size: 1.5rem;
+  font-family: Arial, Helvetica, sans-serif;
+  cursor: pointer;
+  user-select: none;
+}
+
+/* селектор для кнопки расчета выражения (=) */
+.my-btn.execute {
+  width: 110px;
+  border-radius: 12px;          /* ← изменено: убираем сильное скругление */
+}
+
+/* active - это состояние активации элемента. В случае кнопки - нажатие на нее */
+.my-btn:active {
+  filter: brightness(80%);
+  /* при нажатии затемняем */
+}
+
+/* селектор для кнопок первостепенных операций (СИНИЕ) */
+.my-btn.primary {
+  background: #388b9d;
+  /* СИНИЙ цвет */
+}
+
+/* селектор для кнопок второстепенных операций (тоже ЧЁРНЫЕ, как обычные) */
+.my-btn.secondary {
+  background: #343333;
+  /* ЧЁРНЫЙ */
+  color: white;
+}
+
+/* селектор для кнопки расчета выражения (=) — тоже синяя, как primary */
+.my-btn.execute {
+  width: 110px;
+  /* сделаем кнопку шире других */
+  border-radius: 34px;
+  /* подкорректируем округлость */
+  background: #0066cc; /* добавляем синий цвет, чтобы = была синей */
+}
+
+/* селектор для поля вывода результата */
+.result {
+  width: 335px;
+  height: 50px;
+  margin-bottom: 15px;
+  /* отступ снизу */
+  padding-right: 10px;
+  /* выступ справа */
+  background: #000000;
+  /* ЧЁРНЫЙ фон поля */
+  text-align: right;
+  /* примагнитим текст к правой стороне */
+  color: white;
+  /* БЕЛЫЙ текст */
+  font-size: 1.5rem;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+header {
+  background-color: #000000;
+  /* ЧЁРНАЯ шапка */
+  color: white;
+  /* БЕЛЫЙ текст в шапке */
+  font-size: 1.5rem;
+  font-family: Arial, Helvetica, sans-serif;
+  padding-bottom: 20px;
+}
+
+.logo {
+  padding-top: 5px;
+  padding-left: 5px;
+}
+
+.calculator {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 100px;
+}
+
+.calculator_body {
+  background-color: rgba(0, 0, 0, 0.6);
+  /* полупрозрачный чёрный, чтобы градиент просвечивал */
+  width: fit-content;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+body {
+  background: linear-gradient(135deg, #00b4d8, #0077b6, #48cae4);
+  /* БИРЮЗОВЫЙ ГРАДИЕНТ */
+  margin: 0;
+  min-height: 100vh;
+}
+
+/* Уменьшаем шрифт и делаем кнопки шире для длинных надписей */
+#btn_change_bg,
+#btn_change_output {
+    font-size: 0.8rem;      /* уменьшаем размер текста */
+    width: auto;            /* ширина под содержимое */
+    padding-left: 8px;      /* отступы слева и справа */
+    padding-right: 8px;
+}
