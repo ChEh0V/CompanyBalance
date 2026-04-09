@@ -103,3 +103,12 @@ body {
   margin: 0;
   min-height: 100vh;
 }
+
+/* Уменьшаем шрифт и делаем кнопки шире для длинных надписей */
+#btn_change_bg,
+#btn_change_output {
+    font-size: 0.8rem;      /* уменьшаем размер текста */
+    width: auto;            /* ширина под содержимое */
+    padding-left: 8px;      /* отступы слева и справа */
+    padding-right: 8px;
+}
