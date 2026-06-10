@@ -522,3 +522,26 @@ header {
     font-size: 0.9rem;
     margin-bottom: 16px;
 }
+
+.success-msg {
+    background: rgba(76,175,80,0.12);
+    border: 1px solid rgba(76,175,80,0.35);
+    border-radius: 8px;
+    padding: 10px 16px;
+    color: #81c784;
+    font-size: 0.9rem;
+    margin-bottom: 16px;
+}
+
+.btn-save {
+    padding: 11px 26px;
+    border-radius: 8px;
+    border: none;
+    background: #ffd700;
+    color: #1a1a1a;
+    font-weight: 700;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+.btn-save:hover { background: #e6c200; }

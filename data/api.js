@@ -1,113 +1,67 @@
-// API URL — бэкенд из лабы 4 на порту 3000
-const API_URL = 'http://localhost:3000/services';
+// В лабе 6 фронт раздаётся с бэкенда (порт 3000),
+// поэтому запросы идут на тот же домен — CORS не нужен
+const API_URL = '/services';
 
 /**
- * XHR GET — получить все услуги (с фильтром)
- * @param {string} title - фильтр по названию
- * @param {string} category - фильтр по категории
- * @param {function} onSuccess - колбэк при успехе
- * @param {function} onError - колбэк при ошибке
+ * fetch GET — получить все услуги с фильтром
  */
-export function fetchServices(title, category, onSuccess, onError) {
-    const xhr = new XMLHttpRequest();
+export async function fetchServices(title, category) {
     let url = API_URL;
     const params = [];
     if (title) params.push('title=' + encodeURIComponent(title));
     if (category) params.push('category=' + encodeURIComponent(category));
     if (params.length) url += '?' + params.join('&');
 
-    xhr.open('GET', url);
-    xhr.responseType = 'json';
-
-    xhr.onload = () => {
-        if (xhr.status === 200) {
-            onSuccess(xhr.response);
-        } else {
-            onError('Ошибка: ' + xhr.status);
-        }
-    };
-
-    xhr.onerror = () => onError('Сетевая ошибка');
-    xhr.send();
+    const response = await fetch(url);
+    if (!response.ok) throw new Error('Ошибка: ' + response.status);
+    return response.json();
 }
 
 /**
- * XHR GET — получить услугу по id
+ * fetch GET — получить услугу по id
  */
-export function fetchServiceById(id, onSuccess, onError) {
-    const xhr = new XMLHttpRequest();
-    xhr.open('GET', `${API_URL}/${id}`);
-    xhr.responseType = 'json';
-
-    xhr.onload = () => {
-        if (xhr.status === 200) {
-            onSuccess(xhr.response);
-        } else {
-            onError('Услуга не найдена');
-        }
-    };
-
-    xhr.onerror = () => onError('Сетевая ошибка');
-    xhr.send();
+export async function fetchServiceById(id) {
+    const response = await fetch(`${API_URL}/${id}`);
+    if (!response.ok) throw new Error('Услуга не найдена');
+    return response.json();
 }
 
 /**
- * XHR POST — создать услугу
+ * fetch POST — создать услугу
  */
-export function createService(data, onSuccess, onError) {
-    const xhr = new XMLHttpRequest();
-    xhr.open('POST', API_URL);
-    xhr.setRequestHeader('Content-Type', 'application/json');
-    xhr.responseType = 'json';
-
-    xhr.onload = () => {
-        if (xhr.status === 201) {
-            onSuccess(xhr.response);
-        } else {
-            onError(xhr.response?.error || 'Ошибка создания');
-        }
-    };
-
-    xhr.onerror = () => onError('Сетевая ошибка');
-    xhr.send(JSON.stringify(data));
+export async function createService(data) {
+    const response = await fetch(API_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+    });
+    if (!response.ok) {
+        const err = await response.json();
+        throw new Error(err.error || 'Ошибка создания');
+    }
+    return response.json();
 }
 
 /**
- * XHR PATCH — обновить услугу
+ * fetch PATCH — обновить услугу
  */
-export function updateService(id, data, onSuccess, onError) {
-    const xhr = new XMLHttpRequest();
-    xhr.open('PATCH', `${API_URL}/${id}`);
-    xhr.setRequestHeader('Content-Type', 'application/json');
-    xhr.responseType = 'json';
-
-    xhr.onload = () => {
-        if (xhr.status === 200) {
-            onSuccess(xhr.response);
-        } else {
-            onError(xhr.response?.error || 'Ошибка обновления');
-        }
-    };
-
-    xhr.onerror = () => onError('Сетевая ошибка');
-    xhr.send(JSON.stringify(data));
+export async function updateService(id, data) {
+    const response = await fetch(`${API_URL}/${id}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+    });
+    if (!response.ok) {
+        const err = await response.json();
+        throw new Error(err.error || 'Ошибка обновления');
+    }
+    return response.json();
 }
 
 /**
- * XHR DELETE — удалить услугу
+ * fetch DELETE — удалить услугу
  */
-export function deleteService(id, onSuccess, onError) {
-    const xhr = new XMLHttpRequest();
-    xhr.open('DELETE', `${API_URL}/${id}`);
-
-    xhr.onload = () => {
-        if (xhr.status === 204) {
-            onSuccess();
-        } else {
-            onError('Ошибка удаления');
-        }
-    };
-
-    xhr.onerror = () => onError('Сетевая ошибка');
-    xhr.send();
+export async function deleteService(id) {
+    const response = await fetch(`${API_URL}/${id}`, { method: 'DELETE' });
+    if (!response.ok) throw new Error('Ошибка удаления');
 }

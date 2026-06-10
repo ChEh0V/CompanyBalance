@@ -43,19 +43,16 @@ export class ProductPage {
         `;
     }
 
-    render() {
+    async render() {
         this.parent.innerHTML = '<div class="empty-state">Загрузка...</div>';
-        fetchServiceById(
-            this.id,
-            (data) => {
-                this.parent.innerHTML = '';
-                this.parent.insertAdjacentHTML('beforeend', this.getHTML(data));
-                this.initThreeJS();
-            },
-            () => {
-                this.parent.innerHTML = '<div class="empty-state">Услуга не найдена. <a href="index.html">← Вернуться</a></div>';
-            }
-        );
+        try {
+            const data = await fetchServiceById(this.id);
+            this.parent.innerHTML = '';
+            this.parent.insertAdjacentHTML('beforeend', this.getHTML(data));
+            this.initThreeJS();
+        } catch {
+            this.parent.innerHTML = '<div class="empty-state">Услуга не найдена. <a href="index.html">← Вернуться</a></div>';
+        }
     }
 
     initThreeJS() {
@@ -70,7 +67,6 @@ export class ProductPage {
         if (!container) return;
         const W = container.clientWidth || 400;
         const H = 220;
-
         const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
         renderer.setSize(W, H);
         renderer.setPixelRatio(window.devicePixelRatio);

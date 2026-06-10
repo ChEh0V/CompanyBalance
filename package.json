@@ -1,15 +1,20 @@
 {
-  "name": "lab5",
+  "name": "lab6",
   "version": "1.0.0",
-  "description": "КапиталСервис — XHR + страница редактирования",
+  "description": "КапиталСервис — fetch + Vite сборка",
   "main": "main.js",
   "scripts": {
-    "start": "npx live-server --port=5500"
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "bootstrap": "^5.3.8"
+  },
+  "devDependencies": {
+    "vite": "^5.0.0"
   }
 }

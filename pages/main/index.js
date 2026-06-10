@@ -52,31 +52,26 @@ export class MainPage {
         if (el) el.style.display = 'none';
     }
 
-    loadServices() {
+    async loadServices() {
         this.hideError();
         const grid = this.gridRoot;
         grid.innerHTML = '<div class="empty-state">Загрузка...</div>';
-
-        fetchServices(
-            this.filterTitle,
-            this.filterCategory,
-            (data) => {
-                this.services = data;
-                this.renderCards();
-            },
-            (err) => {
-                this.showError('Ошибка загрузки: ' + err + '. Убедитесь что бэкенд запущен на порту 3000 и включён CORS Unblock.');
-                grid.innerHTML = '';
-            }
-        );
+        try {
+            this.services = await fetchServices(this.filterTitle, this.filterCategory);
+            this.renderCards();
+        } catch (err) {
+            this.showError('Ошибка загрузки: ' + err.message);
+            grid.innerHTML = '';
+        }
     }
 
-    deleteServiceHandler(id) {
-        deleteService(
-            id,
-            () => this.loadServices(),
-            (err) => this.showError('Ошибка удаления: ' + err)
-        );
+    async deleteServiceHandler(id) {
+        try {
+            await deleteService(id);
+            await this.loadServices();
+        } catch (err) {
+            this.showError('Ошибка удаления: ' + err.message);
+        }
     }
 
     openDetail(id) {
