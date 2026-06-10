@@ -1,19 +1,15 @@
 {
-  "name": "lab4",
+  "name": "lab5",
   "version": "1.0.0",
-  "description": "КапиталСервис — REST API",
-  "main": "src/index.js",
+  "description": "КапиталСервис — XHR + страница редактирования",
+  "main": "main.js",
   "scripts": {
-    "start": "node src/index.js",
-    "dev": "nodemon src/index.js"
+    "start": "npx live-server --port=5500"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.18.2"
-  },
-  "devDependencies": {
-    "nodemon": "^3.0.1"
+    "bootstrap": "^5.3.8"
   }
 }
