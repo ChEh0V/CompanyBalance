@@ -1,15 +1,19 @@
 {
-  "name": "lab3",
+  "name": "lab4",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "КапиталСервис — REST API",
+  "main": "src/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node src/index.js",
+    "dev": "nodemon src/index.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "bootstrap": "^5.3.8"
+    "express": "^4.18.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
   }
 }
